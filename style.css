@@ -63,7 +63,7 @@
   left: 10%;
   width: 80%;
   height: 14%;
-  background-color: #ffe6e6; /* Light romantic tone */
+  background-color: #000000; /* Light romantic tone */
 }
 
 .words.line1 {
@@ -237,12 +237,40 @@ body {
   align-items: center;
 }
 
+/* Container layout for side-by-side display */
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  align-items: center;
+  width: 100%;
+}
+
+.letter-section {
+  flex: 0 0 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat-section {
+  flex: 1;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
 .envlope-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 30px;
+  margin-top: 240px;
 }
 
 .reset {
@@ -273,4 +301,20 @@ body {
 .reset button:hover {
   background-color: #d9534f;
   color: #fff;
+}
+
+/* Responsive layout for mobile devices */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .letter-section {
+    flex: 0 0 auto;
+  }
+  
+  #envelope {
+    transform: scale(0.8);
+  }
 }

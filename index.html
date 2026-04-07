@@ -1,40 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
-    <title>Love letter for Novinoey</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Letter & Chat for Novinoey</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap"
-      rel="stylesheet" />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <!-- tiktok meowish -->
-    <div class="envlope-wrapper">
-      <div id="envelope" class="close">
-        <div class="front flap"></div>
-        <div class="front pocket"></div>
-        <div class="letter">
-          <div class="words line1">To: Noey</div>
-          <div class="words line2">Happy 1st Month Anniversary!</div>
-          <div class="words line3">This is just the beginning</div>
-          <div class="words line4">of our beautiful journey together.</div>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet" />
+    
+    <link rel="stylesheet" href="css/main.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* จัดการ Layout หลัก */
+        body {
+          margin: 0;
+        padding: 0;
+        /* เปลี่ยนจากสีชมพูเป็นสีดำ/เทาเข้ม */
+        background-color: #464040; 
+        /* เพิ่ม Background Gradient เพื่อความพรีเมียม (เลือกใช้แค่อย่างเดียวก็ได้) */
+        background: radial-gradient(circle, #1a1a1a 0%, #000000 100%);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #ffffff;
+        }
+
+        .main-wrapper {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            gap: 40px; /* ระยะห่างระหว่างจดหมายกับแชท */
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* ฝั่งซ้าย: จดหมาย */
+        .letter-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 350px;
+            position: sticky;
+            top: 20px;
+        }
+
+        /* ฝั่งขวา: แชท */
+        .chat-section {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            min-width: 320px;
+        }
+
+        /* ปรับแต่งขนาดมือถือจำลองให้พอดี */
+        #mobile {
+            position: relative;
+            margin: 0 auto;
+            width: 360px; /* ปรับขนาดความกว้างตามต้องการ */
+            height: 640px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        /* ตอบสนองต่อหน้าจอขนาดเล็ก (Responsive) */
+        @media (max-width: 850px) {
+            .main-wrapper {
+                flex-direction: column;
+                align-items: center;
+            }
+            .letter-section {
+                position: relative;
+                top: 0;
+                margin-bottom: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-wrapper">
+        
+        <div class="letter-section">
+            <div class="envlope-wrapper">
+                <div id="envelope" class="close">
+                    <div class="front flap"></div>
+                    <div class="front pocket"></div>
+                    <div class="letter">
+                        <div class="words line1">To: Noey</div>
+                        <div class="words line2">Happy 1st Month Anniversary!</div>
+                        <div class="words line3">This is just the beginning</div>
+                        <div class="words line4">of our beautiful journey together.</div>
+                    </div>
+                    <div class="hearts">
+                        <div class="heart a1"></div>
+                        <div class="heart a2"></div>
+                        <div class="heart a3"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="reset">
+                <button id="open">Open</button>
+                <button id="reset">Close</button>
+            </div>
         </div>
-        <div class="hearts">
-          <div class="heart a1"></div>
-          <div class="heart a2"></div>
-          <div class="heart a3"></div>
+
+        <div class="chat-section">
+            <div id="mobile" :class="{ 'has-prompt': hasPrompt }">
+                <div id="mobile-head">
+                    <div id="mobile-head-title">Chatting with My Love</div>
+                </div>
+                <div id="mobile-body">
+                    <div id="mobile-body-bg"></div>
+                    <div id="mobile-body-content">
+                        <div id="mock-msg-row" class="msg-row">
+                            <div id="mock-msg" class="msg" v-html="latestMsgContent"></div>
+                        </div>
+                        <div class="msg-row"
+                            v-for="(msg, index) in messages"
+                            :key="index"
+                            :class="msg.author === 'author' ? 'msg-author' : 'msg-me'">
+                            <div class="msg"
+                                :class="'msg-bounce-in-' + (msg.author === 'author' ? 'left': 'right')"
+                                :style="msg.width && msg.height && {width: msg.width - 26 + 'px', height: msg.height - 18 + 'px'}"
+                                v-html="msg.content"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="mobile-foot">
+                    <div id="prompt">
+                        <div id="prompt-head">
+                            <div class="say-something">I want to say...</div>
+                            <a href="javascript:;" class="close-btn" v-on:click="togglePrompt(false)"></a>
+                        </div>
+                        <div id="prompt-body">
+                            <ul class="responses" v-if="lastDialog">
+                                <li v-for="res in lastDialog.responses">
+                                    <a href="javascript:;" v-on:click="respond(res)">{{ res.content }}</a>
+                                </li>
+                            </ul>
+                            <div class="next-topic" v-if="!lastDialog || !lastDialog.responses">
+                                <ul class="topics">
+                                    <li v-for="topic in nextTopics">
+                                        <a href="javascript:;" v-on:click="ask(topic)">{{ topic.brief }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="input-hint" class="say-something"
+                        v-on:click="togglePrompt(true)"
+                        :class="{'clickable': !isTyping }">
+                        <span v-if="!isTyping">I want to say...</span>
+                        <span v-if="isTyping">My love is typing</span>
+                    </div>
+                </div>
+                <div id="prompt-bg" v-on:click="togglePrompt(false)"></div>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="reset">
-      <button id="open">Open</button>
-      <button id="reset">Close</button>
+
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="script.js"></script>
-  </body>
+    <script src="//cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
+    <script src="//cdn.bootcss.com/vue/2.2.6/vue.min.js"></script>
+    
+    <script src="script.js"></script> <script src="js/index-min.js"></script> </body>
 </html>
