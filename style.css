@@ -510,3 +510,32 @@ body {
     }
     .time-item span { font-size: 0.9rem; }
 }
+html, body {
+    /* ใช้ background-color อย่างเดียว เพื่อให้สีดำอยู่ชั้นล่างสุด */
+    background-color: #000000 !important;
+    
+    /* ใช้ background-image สำหรับทำ Gradient โดยไม่ไปยุ่งกับพื้นหลังส่วนอื่น */
+    background-image: radial-gradient(circle, #1a1a1a 0%, #000000 100%) !important;
+    
+    /* ป้องกันไม่ให้ Gradient ไปทับรูปภาพ */
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+}
+
+/* ตรวจสอบว่า Container ของรูปภาพอยู่หน้าสุด */
+.background-images {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2; /* ดันรูปภาพขึ้นมาอยู่เหนือ Gradient */
+    pointer-events: none;
+}
+
+.bg-img {
+    position: absolute;
+    z-index: 3; /* รูปแต่ละรูปต้องมี z-index สูงกว่าพื้นหลัง */
+    opacity: 0.2; /* ปรับความจางตามชอบ */
+}
