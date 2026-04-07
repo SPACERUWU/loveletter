@@ -38,15 +38,13 @@
 
         /* ฝั่งซ้าย: จดหมาย */
         .letter-section {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-width: 350px;
-            position: sticky;
-            top: 20px;
-        }
+    flex: 0 0 auto; /* ป้องกันการโดนบีบจนเบี้ยว */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: scale(0.9); /* ย่อขนาดลงนิดนึงถ้ามันใหญ่ไปสำหรับหน้าจอ */
+}
 
         /* ฝั่งขวา: แชท */
         .chat-section {

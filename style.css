@@ -4,7 +4,7 @@
   height: 270px;
   border-bottom-left-radius: 9px;
   border-bottom-right-radius: 9px;
-  margin: 0;
+  margin: 0 auto;
   background-color: #d9534f; /* Warm romantic red */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
@@ -56,6 +56,13 @@
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+.letter .words {
+    color: #000000 !important;
+    font-family: 'Dancing Script', cursive;
+    background-color: rgba(255, 230, 230, 0.5); /* ใส่สีจางๆ ตามหลังตัวอักษรให้ดูเหมือนกระดาษ */
+    z-index: 10;
 }
 
 .words {
